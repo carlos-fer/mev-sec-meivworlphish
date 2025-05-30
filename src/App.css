@@ -1,0 +1,154 @@
+
+/* Estilos básicos para a página de login baseada no HTML fornecido */
+
+.login-page {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  background: url('/assets/MeivworldReactive_Theme.LoginWallpaper.jpg') no-repeat center center fixed;
+  background-size: cover;
+  filter: grayscale(0.7) contrast(1.1);
+}
+
+.main-content {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(30, 30, 30, 0.92);
+  border-radius: 12px;
+  box-shadow: 0 2px 32px rgba(0,0,0,0.45);
+  padding: 40px 32px 24px 32px;
+  margin: 48px 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-content {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(30, 30, 30, 0.92);
+  border-radius: 12px;
+  box-shadow: 0 2px 32px rgba(0,0,0,0.45);
+  padding: 40px 32px 24px 32px;
+  margin: 48px 0;
+}
+
+.login-logo img {
+  height: 80px;
+  margin-bottom: 16px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.login-inputs {
+  margin-top: 24px;
+}
+
+.animated-label {
+  margin-bottom: 18px;
+}
+.animated-label-text label {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.animated-label-input input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #232323;
+  color: #fff;
+  font-size: 1.08rem;
+  margin-top: 4px;
+}
+.input-password input {
+  letter-spacing: 0.1em;
+}
+.btn {
+  padding: 16px 0;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.btn-primary {
+  background: #c00;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+.btn-primary:hover {
+  background: #a80000;
+}
+.background-mw-red {
+  background: #c00;
+}
+.OSFillParent {
+  width: 100%;
+}
+.mw-footer {
+  margin-top: 32px;
+  color: #aaa;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.text-neutral-0 {
+  color: #fff;
+}
+.text-neutral-7 {
+  color: #aaa;
+}
+.margin-top-m {
+  margin-top: 24px;
+}
+.margin-top-base {
+  margin-top: 12px;
+}
+.margin-top-l {
+  margin-top: 32px;
+}
+.font-size-s {
+  font-size: 0.95rem;
+}
+.margin-left-s {
+  margin-left: 8px;
+}
+.checkbox {
+  accent-color: #c00;
+  width: 18px;
+  height: 18px;
+}
+.columns {
+  display: flex;
+  gap: 16px;
+}
+.columns-item {
+  flex: 1;
+}
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
