@@ -23,14 +23,16 @@ function App() {
             <img src="/assets/meivworld-logo.png" alt="MEIV WORLD APPLICATION SUITE" />
           </div>
           
-          <div className="input-field">
+          <div className="input-field animated-label-input">
+            <input type="text" id="username" className="form-control" placeholder=" " required />
             <label htmlFor="username">Utilizador <span className="required-mark">*</span></label>
-            <input type="text" id="username" required />
+            <div className="input-underline"></div>
           </div>
           
-          <div className="input-field">
+          <div className="input-field animated-label-input">
+            <input type="password" id="password" className="form-control" placeholder=" " required />
             <label htmlFor="password">Palavra-chave <span className="required-mark">*</span></label>
-            <input type="password" id="password" required />
+            <div className="input-underline"></div>
           </div>
           
           <div className="remember-me">
@@ -62,6 +64,9 @@ function App() {
             <span className="google-text">Iniciar sessão como Carlos</span>
           </button>
         </div>
+      </div>
+      <div className="copyright">
+        © {new Date().getFullYear()} Meivworld Application Suite
       </div>
     </div>
   );

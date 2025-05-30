@@ -15,6 +15,7 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+  padding-bottom: 60px; /* Add padding to make space for copyright */
 }
 
 .login-bg {
@@ -31,7 +32,7 @@
 
 .login-container {
   width: 100%;
-  max-width: 360px;
+  max-width: 420px;
   z-index: 1;
   display: flex;
   justify-content: center;
@@ -40,7 +41,9 @@
 
 .login-card {
   width: 100%;
-  background-color: rgba(33, 33, 33, 0.92);
+  background-color: rgba(29, 29, 30, 0.88);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   padding: 32px 32px 25px;
   display: flex;
   flex-direction: column;
@@ -59,8 +62,6 @@
 .input-field {
   position: relative;
   margin-bottom: 28px;
-  display: flex;
-  flex-direction: column;
 }
 
 .input-field input {
@@ -71,18 +72,58 @@
   color: white;
   font-size: 16px;
   padding: 8px 0;
-  margin-top: 0;
   outline: none;
 }
 
 .input-field label {
   color: white;
   font-size: 16px;
-  margin-bottom: 2px;
+}
+
+/* Animated Input Field Styles */
+.animated-label-input {
+  position: relative;
+  margin-bottom: 28px;
+  height: 60px;
+}
+
+.animated-label-input input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(179, 179, 179, 0.7);
+  color: white;
+  font-size: 16px;
+  padding: 8px 0;
+  outline: none;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.animated-label-input label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.animated-label-input input:focus {
+  border-bottom: 2px solid #e6e6e6;
+}
+
+.animated-label-input input:focus + label,
+.animated-label-input input:not(:placeholder-shown) + label {
+  transform: translateY(-5px);
+  font-size: 14px;
+  color: #b3b3b3;
 }
 
 .required-mark {
-  color: #dc1a22;
+  color: #ce0e2d;
   margin-left: 3px;
   font-weight: normal;
 }
@@ -137,7 +178,7 @@
 
 .login-btn {
   width: 100%;
-  background-color: #dc1a22;
+  background-color: #ce0e2d;
   color: white;
   border: none;
   border-radius: 0;
@@ -146,6 +187,11 @@
   font-weight: 500;
   cursor: pointer;
   margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #9a0a22;
 }
 
 .separator {
@@ -179,6 +225,11 @@
   padding: 10px 16px;
   cursor: pointer;
   text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.google-btn:hover {
+  background-color: #f1f1f1;
 }
 
 .google-icon {
@@ -192,4 +243,16 @@
   flex-grow: 1;
   text-align: center;
   margin-right: 24px;
+}
+
+.copyright {
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.8;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
