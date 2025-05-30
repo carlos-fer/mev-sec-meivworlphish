@@ -22,21 +22,14 @@ import './GmailLogin.css';
 
 // Custom Google Icon similar to the one in the attachment
 function GoogleLogoIcon(props) {
-  return (
-    <SvgIcon {...props} viewBox="0 0 75 24" sx={{ width: '75px', height: '24px' }}>
-      <path fill="#4285F4" d="M14.11 13.655c0-.8-.07-1.39-.21-2H8.16v3.62h3.56a3.2 3.2 0 01-1.32 2.12v1.68h2.11c1.24-1.14 1.96-2.83 1.96-5.42z" />
-      <path fill="#34A853" d="M8.16 18.121c1.77 0 3.27-.58 4.35-1.59l-2.11-1.68c-.59.42-1.35.72-2.24.72-1.72 0-3.17-1.16-3.7-2.73H2.27v1.74a6.77 6.77 0 006.46 3.55z" />
-      <path fill="#FBBC05" d="M4.47 12.711c-.3-.56-.47-1.16-.47-1.78s.17-1.22.47-1.78v-1.74H2.27a6.77 6.77 0 000 7.04l2.2-1.74z" />
-      <path fill="#EA4335" d="M8.16 7.041a3.7 3.7 0 012.61 1.02l1.89-1.89a6.47 6.47 0 00-4.5-1.75 6.77 6.77 0 00-6.05 3.73l2.2 1.74c.52-1.57 1.97-2.85 3.7-2.85z" />
-      <path fill="none" d="M0 0h18v18.12H0z" />
-      <g>
-        <path fill="#757575" d="M24.5 11.842v-2.79h4.58v-1.45H24.5v-2.79h-1.59v7.03h6.25v-1.45H24.5zM31.42 11.842v-7.03h-1.59v7.03h1.59zM33.86 11.842v-7.03H32.3v7.03h1.56zM39.02 6.392c-.36-.34-.9-.52-1.56-.52-.46 0-.87.09-1.23.27-.37.18-.67.44-.87.76l1.25.52c.31-.44.7-.65 1.14-.65.28 0 .52.07.69.22.17.15.26.36.26.62v.18c-.38-.06-.71-.09-.98-.09-.74 0-1.34.15-1.79.47-.45.32-.68.77-.68 1.33 0 .56.17 1 .51 1.31.34.32.77.48 1.27.48.62 0 1.12-.28 1.5-.85h.04v.68h1.5v-3.96c0-.72-.19-1.27-.55-1.61zm-1.24 4.19c-.37 0-.7-.31-.7-.67 0-.72.89-.95 1.66-.95.3 0 .62.05.95.14a1.58 1.58 0 01-1.91 1.48z" />
-        <path fill="#757575" d="M44.79 4.842l-1.78 4.51h-.04l-1.84-4.51h-1.71l2.76 6.29-1.57 3.5h1.66l4.24-9.79zM46.36 11.842h1.59v-7.03h-1.59zM51.07 4.812h-1.59v7.03h4.73v-1.45h-3.14z" />
-        <path fill="#757575" d="M56.59 11.852c1.45 0 2.64-1.18 2.64-2.63s-1.19-2.63-2.64-2.63-2.63 1.18-2.63 2.63 1.18 2.63 2.63 2.63zm0-1.32c-.72 0-1.3-.6-1.3-1.31 0-.71.58-1.31 1.3-1.31s1.31.6 1.31 1.31c0 .72-.59 1.31-1.31 1.31zM65.83 11.842V4.812h-1.53v4.38l-3.02-4.38h-1.65v7.03h1.53v-4.5l3.08 4.5h1.59z" />
-        <path fill="#757575" d="M68.11 11.252a2.82 2.82 0 002.74 1.62c1.56 0 2.54-.92 2.54-2.2 0-1.03-.66-1.7-1.91-1.92l-1.01-.18c-.48-.09-.81-.3-.81-.64 0-.4.37-.65.85-.65.68 0 1.22.27 1.33.81l1.42-.3c-.23-1.01-1.13-1.7-2.75-1.7-1.42 0-2.43.9-2.43 2.14 0 1.02.74 1.71 1.84 1.9l.99.17c.51.09.86.3.86.67 0 .4-.42.68-1.02.68-.79 0-1.3-.35-1.44-.92l-1.41.4z" />
-      </g>
+return (
+    <SvgIcon {...props} viewBox="0 0 40 48" sx={{ width: '48px', height: '48px' }}>
+        <path fill="#4285F4" d="M39.2 24.45c0-1.55-.16-3.04-.43-4.45H20v8h10.73c-.45 2.53-1.86 4.68-4 6.11v5.05h6.5c3.78-3.48 5.97-8.62 5.97-14.71z"></path>
+        <path fill="#34A853" d="M20 44c5.4 0 9.92-1.79 13.24-4.84l-6.5-5.05C24.95 35.3 22.67 36 20 36c-5.19 0-9.59-3.51-11.15-8.23h-6.7v5.2C5.43 39.51 12.18 44 20 44z"></path>
+        <path fill="#FABB05" d="M8.85 27.77c-.4-1.19-.62-2.46-.62-3.77s.22-2.58.62-3.77v-5.2h-6.7C.78 17.73 0 20.77 0 24s.78 6.27 2.14 8.97l6.71-5.2z"></path>
+        <path fill="#E94235" d="M20 12c2.93 0 5.55 1.01 7.62 2.98l5.76-5.76C29.92 5.98 25.39 4 20 4 12.18 4 5.43 8.49 2.14 15.03l6.7 5.2C10.41 15.51 14.81 12 20 12z"></path>
     </SvgIcon>
-  );
+);
 }
 
 function GmailLogin({ onBack }) {
@@ -44,16 +37,35 @@ function GmailLogin({ onBack }) {
   const [password, setPassword] = useState('');
   const [step, setStep] = useState(1); // 1 = email input, 2 = password input
   const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState('');
   
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    if (emailError) {
+      setEmailError('');
+    }
   };
   
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-    const handleNextClick = () => {
-    if (step === 1 && email.trim() !== '') {
+  
+  // Validate email format
+  const isEmailValid = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  
+  const handleNextClick = () => {
+    if (step === 1) {
+      if (email.trim() === '') {
+        setEmailError('Introduza um endereço de email');
+        return;
+      } else if (!isEmailValid(email)) {
+        setEmailError('Introduza um endereço de email válido');
+        return;
+      }
+      setEmailError('');
       setStep(2);
     } else if (step === 2) {
       // Handle login completion
@@ -127,8 +139,9 @@ function GmailLogin({ onBack }) {
             <FormControl 
               fullWidth 
               variant="outlined" 
+              error={!!emailError}
               sx={{ 
-                mb: 2,
+                mb: emailError ? 0.5 : 2,
                 '& .MuiFormLabel-root.MuiInputLabel-shrink': {
                   transform: 'translate(14px, -9px) scale(0.75)',
                   backgroundColor: 'white',
@@ -139,16 +152,17 @@ function GmailLogin({ onBack }) {
               <InputLabel 
                 htmlFor="email-input"
                 sx={{
-                  color: '#5f6368',
+                  color: emailError ? '#d32f2f' : '#5f6368',
                   fontSize: '16px',
                   fontFamily: 'Roboto, Arial, sans-serif',
                   '&.Mui-focused': {
-                    color: '#1a73e8',
+                    color: emailError ? '#d32f2f' : '#1a73e8',
                   }
                 }}
               >
                 Email ou telemóvel
-              </InputLabel>              <OutlinedInput
+              </InputLabel>
+              <OutlinedInput
                 id="email-input"
                 value={email}
                 onChange={handleEmailChange}
@@ -156,6 +170,7 @@ function GmailLogin({ onBack }) {
                 label="Email ou telemóvel"
                 fullWidth
                 autoFocus
+                error={!!emailError}
                 sx={{
                   height: '56px',
                   borderRadius: '4px',
@@ -163,14 +178,14 @@ function GmailLogin({ onBack }) {
                   color: '#202124',
                   fontFamily: 'Roboto, Arial, sans-serif',
                   '&:hover .MuiOutlinedInput-notchedOutline': {
-                    borderColor: 'rgba(0, 0, 0, 0.23)',
+                    borderColor: emailError ? '#d32f2f' : 'rgba(0, 0, 0, 0.23)',
                   },
                   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                     borderWidth: '2px',
-                    borderColor: '#1a73e8',
+                    borderColor: emailError ? '#d32f2f' : '#1a73e8',
                   },
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#dadce0',
+                    borderColor: emailError ? '#d32f2f' : '#dadce0',
                   }
                 }}
                 endAdornment={
@@ -183,6 +198,20 @@ function GmailLogin({ onBack }) {
                   )
                 }
               />
+              {emailError && (
+                <Typography 
+                  variant="caption" 
+                  color="error" 
+                  sx={{ 
+                    mt: 0.5, 
+                    ml: 1.5, 
+                    display: 'block',
+                    fontSize: '12px'
+                  }}
+                >
+                  {emailError}
+                </Typography>
+              )}
             </FormControl>
           ) : (
             <FormControl 

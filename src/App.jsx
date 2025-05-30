@@ -23,7 +23,7 @@ function App() {
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
     // Show alert with email/username
-    alert('Login attempted with email: ' + username);
+    alert('Login attempted Username: ' + username);
     // Additional login logic can go here
     console.log('Login submitted');
   };
