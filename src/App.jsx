@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import './App.css';
+import GmailLogin from './components/GmailLogin';
 
 function App() {
+  const [showGmailLogin, setShowGmailLogin] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
 
   const handleCheckboxChange = () => {
@@ -13,15 +15,23 @@ function App() {
     // Handle login logic here
     console.log('Login submitted');
   };
+  
+  const toggleLoginMode = () => {
+    setShowGmailLogin(!showGmailLogin);
+  };
 
   return (
-    <div className="login-page">
-      <div className="login-bg"></div>
-      <div className="login-container">
-        <div className="login-card">
-          <div className="logo-container">
-            <img src="/assets/meivworld-logo.png" alt="MEIV WORLD APPLICATION SUITE" />
-          </div>
+    <>
+      {showGmailLogin ? (
+        <GmailLogin onBack={toggleLoginMode} />
+      ) : (
+        <div className="login-page">
+          <div className="login-bg"></div>
+          <div className="login-container">
+            <div className="login-card">
+              <div className="logo-container">
+                <img src="/assets/meivworld-logo.png" alt="MEIV WORLD APPLICATION SUITE" />
+              </div>
           
           <div className="input-field animated-label-input">
             <input type="text" id="username" className="form-control" placeholder=" " required />
@@ -55,7 +65,7 @@ function App() {
             <span>Ou</span>
           </div>
           
-          <button type="button" className="google-btn">
+          <button type="button" className="google-btn" onClick={toggleLoginMode}>
             <img 
               src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
               alt="Google" 
@@ -69,6 +79,8 @@ function App() {
         © {new Date().getFullYear()} Meivworld Application Suite
       </div>
     </div>
+      )}
+    </>
   );
 }
 

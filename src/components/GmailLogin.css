@@ -1,0 +1,118 @@
+/* Gmail-style login specific styles */
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Google Sans Regular'), local('GoogleSans-Regular');
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Google Sans Medium'), local('GoogleSans-Medium');
+}
+
+body {
+  margin: 0;
+  font-family: 'Google Sans', 'Roboto', 'Segoe UI', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.gmail-login-page {
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.gmail-login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: calc(100vh - 90px); /* Account for footer */
+  padding: 0 8px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.login-card-container {
+  background-color: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 48px 40px 36px;
+  margin: 0 auto;
+  max-width: 450px;
+  min-height: 500px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.back-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #1a73e8;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.back-button:hover {
+  background-color: rgba(26, 115, 232, 0.04);
+}
+
+.back-icon {
+  margin-right: 4px;
+  font-size: 20px;
+}
+
+.gmail-footer {
+  background-color: #ffffff;
+  padding: 20px 0;
+  font-size: 12px;
+  color: #5f6368;
+  width: 100%;
+  margin-top: auto;
+  border-top: 1px solid #dadce0;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+/* Additional styles for better Gmail match */
+.input-label-float {
+  transform: translate(14px, -6px) scale(0.75);
+  background-color: white;
+  padding: 0 4px;
+}
+
+@media (max-width: 600px) {
+  .login-card-container {
+    padding: 36px 24px 24px;
+    border: none;
+    box-shadow: none;
+    max-width: 100%;
+  }
+  
+  .gmail-login-wrapper {
+    align-items: flex-start;
+    padding-top: 48px;
+  }
+  
+  .gmail-footer {
+    padding: 16px 0;
+  }
+}
