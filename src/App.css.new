@@ -1,0 +1,213 @@
+/* Reset and base styles */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Login page container */
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background image with industrial factory overlay */
+.login-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/assets/MeivworldReactive_Theme.LoginWallpaper.jpg') no-repeat center center;
+  background-size: cover;
+  z-index: -1;
+}
+
+/* Login card container */
+.login-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Login card */
+.login-card {
+  width: 360px;
+  background-color: rgba(33, 33, 33, 0.92);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo */
+.login-logo {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.login-logo img {
+  height: 80px;
+  width: auto;
+}
+
+/* Form container */
+.login-form-container {
+  width: 100%;
+}
+
+/* Input fields */
+.input-container {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.input-container input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 10px 0;
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+.input-container label {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  color: white;
+  font-size: 16px;
+  transition: all 0.3s;
+  pointer-events: none;
+}
+
+.input-container input:focus ~ label,
+.input-container input:not(:placeholder-shown) ~ label {
+  transform: translateY(-24px);
+  font-size: 14px;
+}
+
+.required {
+  color: #e53935;
+}
+
+/* Remember me checkbox */
+.remember-me {
+  margin: 24px 0;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox-wrapper input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox {
+  height: 24px;
+  width: 24px;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 12px;
+}
+
+.checkbox-wrapper input:checked ~ .custom-checkbox:after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 5px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-wrapper span {
+  color: white;
+}
+
+/* Login button */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  color: white;
+}
+
+.divider:before,
+.divider:after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.divider span {
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+/* Google login button */
+.google-login {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.google-login img {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+}
+
+.google-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 15px;
+}
+
+.google-text .email {
+  font-size: 12px;
+  color: #777;
+}

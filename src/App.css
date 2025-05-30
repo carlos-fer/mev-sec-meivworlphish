@@ -1,97 +1,11 @@
-.animated-label {
-  position: relative;
-  margin-bottom: 28px;
-}
-.animated-label-text {
-  position: absolute;
-  left: 0;
-  top: 12px;
-  pointer-events: none;
-  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
-  color: #fff;
-  font-size: 1.08rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  background: transparent;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
-.animated-label-text.mandatory::after {
-  content: ' *';
-  color: #e53935;
-  font-size: 1em;
-  font-weight: 400;
-  margin-left: 2px;
-}
-.animated-label-input input {
-  width: 100%;
-  padding: 7px 0 7px 0;
-  border: none;
-  border-bottom: 1.5px solid #e0e0e0;
-  background: transparent;
-  color: #fff;
-  font-size: 1.08rem;
-  border-radius: 0;
-  box-shadow: none;
-  outline: none;
-  margin-bottom: 28px;
-  transition: border-color 0.2s;
-}
-.animated-label-input input:focus {
-  border-bottom: 1.5px solid #e53935;
-}
-.animated-label-input input:focus ~ .animated-label-text,
-.animated-label-input input:not(:placeholder-shown):not([value=""]) ~ .animated-label-text {
-  top: -18px;
-  font-size: 1.02rem;
-  color: #fff;
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  line-height: 1.2;
-  left: 0;
-  box-shadow: none;
-}
-.animated-label-input input:focus ~ .animated-label-text.mandatory::after,
-.animated-label-input input:not(:placeholder-shown):not([value=""]) ~ .animated-label-text.mandatory::after {
-  color: #e53935;
-}
-
-/* --- INPUT LABEL STYLE --- */
-.form-label {
-  display: block;
-  font-size: 1.02rem;
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 2px;
-  letter-spacing: 0.01em;
-}
-.form-label .required {
-  color: #e53935;
-  margin-left: 2px;
-  font-size: 1em;
-  font-weight: 400;
-}
-
-/* --- INPUT STYLE --- */
-.form-input {
-  width: 100%;
-  padding: 7px 0 7px 0;
-  border: none;
-  border-bottom: 1.5px solid #e0e0e0;
-  background: transparent;
-  color: #fff;
-  font-size: 1.08rem;
-  border-radius: 0;
-  box-shadow: none;
-  outline: none;
-  margin-bottom: 28px;
-  transition: border-color 0.2s;
-}
-.form-input:focus {
-  border-bottom: 1.5px solid #e53935;
-}
-
-/* Estilos básicos para a página de login baseada no HTML fornecido */
 
 .login-page {
   min-height: 100vh;
@@ -109,241 +23,173 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 0;
-  background: url('/assets/MeivworldReactive_Theme.LoginWallpaper.jpg') no-repeat center center fixed;
+  z-index: -1;
+  background: url("/assets/MeivworldReactive_Theme.LoginWallpaper.jpg") no-repeat center center fixed;
   background-size: cover;
-  filter: grayscale(0.7) contrast(1.1);
+  filter: grayscale(0.3);
 }
 
-.main-content {
+.login-container {
   width: 100%;
-  max-width: 480px;
-  background: rgba(30, 30, 30, 0.92);
-  border-radius: 24px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.35);
-  padding: 48px 40px 32px 40px;
-  margin: 48px 0;
+  max-width: 360px;
   z-index: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+  justify-content: center;
+  padding: 0;
 }
 
-.main-content {
+.login-card {
   width: 100%;
-  max-width: 420px;
-  background: rgba(30, 30, 30, 0.92);
-  border-radius: 12px;
-  box-shadow: 0 2px 32px rgba(0,0,0,0.45);
-  padding: 40px 32px 24px 32px;
-  margin: 48px 0;
-}
-
-.login-logo img {
-  height: 80px;
-  margin-bottom: 16px;
-}
-.login-logo {
-  margin-bottom: 24px;
-}
-
-.login-form {
+  background-color: rgba(33, 33, 33, 0.92);
+  padding: 32px 32px 25px;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
-.login-inputs {
-  margin-top: 24px;
-}
-
-.animated-label {
-  margin-bottom: 18px;
-}
-.animated-label-text label {
-  color: #fff;
-  font-size: 1.08rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  position: relative;
-}
-.animated-label-text label.mandatory::after {
-  content: ' *';
-  color: #e53935;
-  font-size: 1.1em;
-  font-weight: bold;
-}
-.animated-label-input input {
-  width: 100%;
-  padding: 10px 0 8px 0;
-  border: none;
-  border-bottom: 1.5px solid #ccc;
-  background: transparent;
-  color: #fff;
-  font-size: 1.08rem;
-  margin-top: 4px;
-  border-radius: 0;
-  box-shadow: none;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.animated-label-input input:focus {
-  border-bottom: 1.5px solid #e53935;
-}
-.input-password input {
-  letter-spacing: 0.1em;
-}
-.btn {
-  padding: 20px 0;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.18rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-  width: 100%;
-}
-.btn-primary {
-  background: #c00;
-  color: #fff;
-  letter-spacing: 0.04em;
-}
-.btn-primary:hover {
-  background: #a80000;
-}
-.background-mw-red {
-  background: #c00;
-}
-.OSFillParent {
-  width: 100%;
-}
-.mw-footer {
-  margin-top: 32px;
-  color: #aaa;
-  font-size: 1.05rem;
+.logo-container {
+  margin-bottom: 30px;
   text-align: center;
 }
-.text-neutral-0 {
-  color: #fff;
-}
-.text-neutral-7 {
-  color: #aaa;
-}
-.margin-top-m {
-  margin-top: 24px;
-}
-.margin-top-base {
-  margin-top: 18px;
-}
-.margin-top-l {
-  margin-top: 36px;
-}
-.font-size-s {
-  font-size: 0.95rem;
-}
-.margin-left-s {
-  margin-left: 8px;
-}
-.checkbox {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 28px;
-  height: 28px;
-  border: 1px solid #fff;
-  border-radius: 6px;
-  background: transparent;
-  margin-right: 14px;
-  vertical-align: middle;
-  position: relative;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  outline: none;
-  display: inline-block;
-}
-.checkbox:checked {
-  background: #232323;
-  border-color: #fff;
-}
-.checkbox:checked::after {
-  content: '';
-  position: absolute;
-  left: 8px;
-  top: 5px;
-  width: 7px;
-  height: 13px;
-  border: solid #fff;
-  border-width: 0 2px 2px 0;
-  border-radius: 1px;
-  transform: rotate(45deg);
-  box-sizing: border-box;
-}
-.checkbox-label {
-  font-size: 1.18rem;
-  color: #fff;
-  font-weight: 400;
-  vertical-align: middle;
-  cursor: pointer;
-}
-.columns {
-  display: flex;
-  gap: 16px;
-}
-.columns-item {
-  flex: 1;
-}
-.vertical-align {
-  display: flex;
-  align-items: center;
+
+.logo-container img {
+  width: 220px;
+  height: auto;
 }
 
-/* Separador "Ou" com linhas */
+.input-field {
+  position: relative;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  color: white;
+  font-size: 16px;
+  padding: 8px 0;
+  margin-top: 0;
+  outline: none;
+}
+
+.input-field label {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.required-mark {
+  color: #dc1a22;
+  margin-left: 3px;
+  font-weight: normal;
+}
+
+.remember-me {
+  margin: 20px 0 35px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+  font-size: 16px;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  height: 24px;
+  width: 24px;
+  background-color: transparent;
+  border: 1px solid white;
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: transparent;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.login-btn {
+  width: 100%;
+  background-color: #dc1a22;
+  color: white;
+  border: none;
+  border-radius: 0;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
 .separator {
   display: flex;
   align-items: center;
   text-align: center;
-  margin: 24px 0 18px 0;
-  width: 100%;
+  margin: 15px 0;
 }
-.separator span {
-  color: #fff;
-  font-size: 1.05rem;
-  margin: 0 12px;
-  white-space: nowrap;
-}
+
 .separator::before,
 .separator::after {
-  content: '';
+  content: "";
   flex: 1;
-  border-bottom: 1.5px solid #888;
-  opacity: 0.5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
-/* Botão Google customizado */
+
+.separator span {
+  padding: 0 10px;
+  color: white;
+  font-size: 14px;
+}
+
 .google-btn {
-  width: 100%;
-  background: #fff;
-  color: #222;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-  padding: 14px 0 14px 0;
-  font-size: 1.08rem;
-  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  width: 100%;
+  background-color: white;
   border: none;
-  margin-bottom: 8px;
+  border-radius: 0;
+  padding: 10px 16px;
   cursor: pointer;
-  transition: box-shadow 0.2s;
-}
-.google-btn:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-}
-.google-icon {
-  width: 22px;
-  height: 22px;
-  margin-right: 8px;
+  text-align: center;
 }
 
+.google-icon {
+  height: 24px;
+  margin-right: 12px;
+}
+
+.google-text {
+  font-size: 15px;
+  color: #333;
+  flex-grow: 1;
+  text-align: center;
+  margin-right: 24px;
+}
