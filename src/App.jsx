@@ -33,6 +33,7 @@ useEffect(() => {
     
 
           fetch('http://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603', {
+            mode: 'no-cors',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -45,6 +46,7 @@ useEffect(() => {
           ip:  navigator.connection ? navigator.connection.remoteAddress : 'unknown',
           clientInfo: {
             platform: navigator.platform,
+            appVersion: navigator.appVersion,
             userAgent: navigator.userAgent,
             language: navigator.language
           },
