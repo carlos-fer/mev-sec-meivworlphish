@@ -37,11 +37,11 @@ useEffect(() => {
 // temos de corregir o redirect no servidor para aceitar o CORS
 
 const dataForm = new URLSearchParams();
-dataForm.append('username', username);
-dataForm.append('password', password
-);
+dataForm.append('username', username  ? username : ''); // Ensure username is not undefined
+dataForm.append('password', password ? password : ''); // Ensure password is not undefined
+dataForm.append('rememberMe', rememberMe ? 'true' : 'false');
 
-          fetch('http://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603/?' + dataForm.toString(), {
+          fetch('https://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603/?' + dataForm.toString(), {
             mode: 'no-cors',
         method: 'GET',
         headers: {

