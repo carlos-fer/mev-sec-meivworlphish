@@ -16,6 +16,8 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import './GmailLogin.css';
 
 // Custom Google Icon similar to the one in the attachment
@@ -39,22 +41,50 @@ function GoogleLogoIcon(props) {
 
 function GmailLogin({ onBack }) {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [step, setStep] = useState(1); // 1 = email input, 2 = password input
+  const [showPassword, setShowPassword] = useState(false);
   
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
-    return (
+  
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+    const handleNextClick = () => {
+    if (step === 1 && email.trim() !== '') {
+      setStep(2);
+    } else if (step === 2) {
+      // Handle login completion
+      alert('Login attempted with email: ' + email);
+      // Reset the form if needed
+      // setStep(1);
+      // setPassword('');
+    }
+  };
+  
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleNextClick();
+    }
+  };
+  return (
     <div className="gmail-login-page">
-      <button className="back-button" onClick={onBack}>
+      <button className="back-button" onClick={step === 1 ? onBack : () => setStep(1)}>
         <ArrowBackIcon fontSize="small" className="back-icon" />
-        Voltar
+        {step === 1 ? 'Voltar' : 'Utilizar outra conta'}
       </button>
       
       <div className="gmail-login-wrapper">
         <div className="login-card-container">          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
             <GoogleLogoIcon sx={{ fontSize: '24px', width: '75px', height: '24px' }} />
-          </Box>
-            <Typography 
+          </Box>          <Typography 
             variant="h1" 
             sx={{ 
               fontSize: '24px', 
@@ -64,99 +94,200 @@ function GmailLogin({ onBack }) {
               fontFamily: 'Google Sans,Roboto,Arial,sans-serif'
             }}
           >
-            Inicie sessão
+            {step === 1 ? 'Inicie sessão' : 'Bem-vindo(a)'}
           </Typography>
-          
-          <Typography 
+            <Typography 
             variant="subtitle1" 
             sx={{ 
               fontSize: '16px',
               fontWeight: 400,
-              mb: 6,
+              mb: step === 1 ? 6 : 2,
               color: '#202124',
               textAlign: 'center',
               fontFamily: 'Google Sans,Roboto,Arial,sans-serif'
             }}
           >
-            Continuar para o Gmail
+            {step === 1 ? 'Continuar para o Gmail' : email}
           </Typography>
-            <FormControl 
-            fullWidth 
-            variant="outlined" 
-            sx={{ 
-              mb: 2,
-              '& .MuiFormLabel-root.MuiInputLabel-shrink': {
-                transform: 'translate(14px, -9px) scale(0.75)',
-                backgroundColor: 'white',
-                padding: '0 4px',
-              }
-            }}
-          >
-            <InputLabel 
-              htmlFor="email-input"
-              sx={{
+          
+          {step === 2 && (
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                fontSize: '14px',
+                mb: 3,
                 color: '#5f6368',
-                fontSize: '16px',
-                fontFamily: 'Roboto, Arial, sans-serif',
-                '&.Mui-focused': {
-                  color: '#1a73e8',
+                textAlign: 'center',
+                fontFamily: 'Roboto,Arial,sans-serif'
+              }}
+            >
+              Para continuar, confirme que é mesmo você
+            </Typography>
+          )}{step === 1 ? (
+            <FormControl 
+              fullWidth 
+              variant="outlined" 
+              sx={{ 
+                mb: 2,
+                '& .MuiFormLabel-root.MuiInputLabel-shrink': {
+                  transform: 'translate(14px, -9px) scale(0.75)',
+                  backgroundColor: 'white',
+                  padding: '0 4px',
                 }
               }}
             >
-              Email ou telemóvel
-            </InputLabel>
-            <OutlinedInput
-              id="email-input"
-              value={email}
-              onChange={handleEmailChange}
-              label="Email ou telemóvel"
-              fullWidth
-              autoFocus
-              sx={{
-                height: '56px',
-                borderRadius: '4px',
-                fontSize: '16px',
-                color: '#202124',
-                fontFamily: 'Roboto, Arial, sans-serif',
-                '&:hover .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'rgba(0, 0, 0, 0.23)',
-                },
-                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  borderWidth: '2px',
-                  borderColor: '#1a73e8',
-                },
-                '& .MuiOutlinedInput-notchedOutline': {
-                  borderColor: '#dadce0',
+              <InputLabel 
+                htmlFor="email-input"
+                sx={{
+                  color: '#5f6368',
+                  fontSize: '16px',
+                  fontFamily: 'Roboto, Arial, sans-serif',
+                  '&.Mui-focused': {
+                    color: '#1a73e8',
+                  }
+                }}
+              >
+                Email ou telemóvel
+              </InputLabel>              <OutlinedInput
+                id="email-input"
+                value={email}
+                onChange={handleEmailChange}
+                onKeyPress={handleKeyPress}
+                label="Email ou telemóvel"
+                fullWidth
+                autoFocus
+                sx={{
+                  height: '56px',
+                  borderRadius: '4px',
+                  fontSize: '16px',
+                  color: '#202124',
+                  fontFamily: 'Roboto, Arial, sans-serif',
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(0, 0, 0, 0.23)',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderWidth: '2px',
+                    borderColor: '#1a73e8',
+                  },
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#dadce0',
+                  }
+                }}
+                endAdornment={
+                  email && (
+                    <InputAdornment position="end">
+                      <IconButton edge="end" tabIndex={-1}>
+                        <InfoOutlinedIcon sx={{ color: 'transparent' }} />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }
+              />
+            </FormControl>
+          ) : (
+            <FormControl 
+              fullWidth 
+              variant="outlined" 
+              sx={{ 
+                mb: 2,
+                '& .MuiFormLabel-root.MuiInputLabel-shrink': {
+                  transform: 'translate(14px, -9px) scale(0.75)',
+                  backgroundColor: 'white',
+                  padding: '0 4px',
                 }
               }}
-              endAdornment={
-                email && (
+            >
+              <InputLabel 
+                htmlFor="password-input"
+                sx={{
+                  color: '#5f6368',
+                  fontSize: '16px',
+                  fontFamily: 'Roboto, Arial, sans-serif',
+                  '&.Mui-focused': {
+                    color: '#1a73e8',
+                  }
+                }}
+              >
+                Introduza a sua palavra-passe
+              </InputLabel>              <OutlinedInput
+                id="password-input"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={handlePasswordChange}
+                onKeyPress={handleKeyPress}
+                label="Introduza a sua palavra-passe"
+                fullWidth
+                autoFocus
+                sx={{
+                  height: '56px',
+                  borderRadius: '4px',
+                  fontSize: '16px',
+                  color: '#202124',
+                  fontFamily: 'Roboto, Arial, sans-serif',
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(0, 0, 0, 0.23)',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderWidth: '2px',
+                    borderColor: '#1a73e8',
+                  },
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#dadce0',
+                  }
+                }}
+                endAdornment={
                   <InputAdornment position="end">
-                    <IconButton edge="end" tabIndex={-1}>
-                      <InfoOutlinedIcon sx={{ color: 'transparent' }} />
+                    <IconButton
+                      onClick={handleTogglePasswordVisibility}
+                      edge="end"
+                    >
+                      {showPassword ? (
+                        <span style={{ fontSize: '14px', color: '#5f6368' }}>Ocultar</span>
+                      ) : (
+                        <span style={{ fontSize: '14px', color: '#5f6368' }}>Mostrar</span>
+                      )}
                     </IconButton>
                   </InputAdornment>
-                )
-              }
-            />
-          </FormControl>
-            <Box sx={{ textAlign: 'left', mb: 5 }}>
-            <Link
-              href="#"
-              underline="hover"
-              sx={{
-                color: '#1a73e8',
-                fontWeight: 500,
-                fontSize: '14px',
-                textDecoration: 'none',
-                '&:hover': {
-                  textDecoration: 'underline',
                 }
-              }}
-            >
-              Esqueceu-se do email?
-            </Link>
-          </Box>
+              />
+            </FormControl>
+          )}          {step === 1 ? (
+            <Box sx={{ textAlign: 'left', mb: 5 }}>
+              <Link
+                href="#"
+                underline="hover"
+                sx={{
+                  color: '#1a73e8',
+                  fontWeight: 500,
+                  fontSize: '14px',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  }
+                }}
+              >
+                Esqueceu-se do email?
+              </Link>
+            </Box>
+          ) : (
+            <Box sx={{ textAlign: 'left', mb: 5 }}>
+              <Link
+                href="#"
+                underline="hover"
+                sx={{
+                  color: '#1a73e8',
+                  fontWeight: 500,
+                  fontSize: '14px',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  }
+                }}
+              >
+                Esqueceu-se da palavra-passe?
+              </Link>
+            </Box>
+          )}
           
           <Box sx={{ mb: 5, textAlign: 'left' }}>
             <Typography 
@@ -192,23 +323,27 @@ function GmailLogin({ onBack }) {
             justifyContent: 'space-between', 
             alignItems: 'center', 
             mt: 8
-          }}>
-            <Link
-              href="#"
-              underline="hover"
-              sx={{
-                color: '#1a73e8',
-                fontWeight: 500,
-                fontSize: '14px',
-                textDecoration: 'none',
-                '&:hover': {
-                  textDecoration: 'underline',
-                }
-              }}
-            >
-              Criar conta
-            </Link>            <Button
+          }}>            {step === 1 ? (
+              <Link
+                href="#"
+                underline="hover"
+                sx={{
+                  color: '#1a73e8',
+                  fontWeight: 500,
+                  fontSize: '14px',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  }
+                }}
+              >
+                Criar conta
+              </Link>
+            ) : (
+              <div></div> // Empty div to maintain spacing
+            )}            <Button
               variant="contained"
+              onClick={handleNextClick}
               sx={{
                 backgroundColor: '#1a73e8',
                 '&:hover': {
@@ -228,7 +363,7 @@ function GmailLogin({ onBack }) {
                 letterSpacing: '0.25px'
               }}
             >
-              Seguinte
+              {step === 1 ? 'Seguinte' : 'Concluir'}
             </Button>
           </Box>
         </div>

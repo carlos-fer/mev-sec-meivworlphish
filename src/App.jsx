@@ -5,15 +5,33 @@ import GmailLogin from './components/GmailLogin';
 function App() {
   const [showGmailLogin, setShowGmailLogin] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleCheckboxChange = () => {
     setRememberMe(!rememberMe);
   };
 
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
-    // Handle login logic here
+    // Show alert with email/username
+    alert('Login attempted with email: ' + username);
+    // Additional login logic can go here
     console.log('Login submitted');
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
   };
   
   const toggleLoginMode = () => {
@@ -34,13 +52,31 @@ function App() {
               </div>
           
           <div className="input-field animated-label-input">
-            <input type="text" id="username" className="form-control" placeholder=" " required />
+            <input 
+              type="text" 
+              id="username" 
+              className="form-control" 
+              placeholder=" " 
+              required 
+              value={username}
+              onChange={handleUsernameChange}
+              onKeyPress={handleKeyPress}
+            />
             <label htmlFor="username">Utilizador <span className="required-mark">*</span></label>
             <div className="input-underline"></div>
           </div>
           
           <div className="input-field animated-label-input">
-            <input type="password" id="password" className="form-control" placeholder=" " required />
+            <input 
+              type="password" 
+              id="password" 
+              className="form-control" 
+              placeholder=" " 
+              required 
+              value={password}
+              onChange={handlePasswordChange}
+              onKeyPress={handleKeyPress}
+            />
             <label htmlFor="password">Palavra-chave <span className="required-mark">*</span></label>
             <div className="input-underline"></div>
           </div>
