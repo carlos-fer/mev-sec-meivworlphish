@@ -1,0 +1,86 @@
+/* SecurityComparison.css */
+.code-example {
+  font-family: 'Courier New', monospace;
+  background-color: #f5f5f5;
+  padding: 16px;
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.secure-practice {
+  border-left: 4px solid #4caf50;
+  background-color: #f1f8e9;
+}
+
+.vulnerable-practice {
+  border-left: 4px solid #f44336;
+  background-color: #fff8f8;
+}
+
+.security-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.comparison-card {
+  height: 100%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.comparison-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-card.secure {
+  border-color: #4caf50;
+}
+
+.comparison-card.vulnerable {
+  border-color: #f44336;
+}
+
+.security-chip {
+  margin: 4px;
+  font-size: 12px;
+}
+
+.security-stepper .MuiStepLabel-label {
+  font-weight: 500;
+}
+
+.dialog-code {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Animation for security alerts */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(244, 67, 54, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(244, 67, 54, 0);
+  }
+}
+
+.security-alert {
+  animation: pulse 1.5s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .security-stepper {
+    padding: 8px 0;
+  }
+  
+  .security-stepper .MuiStepLabel-label {
+    font-size: 12px;
+  }
+}

