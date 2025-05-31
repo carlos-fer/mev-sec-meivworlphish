@@ -164,7 +164,7 @@ function GmailLogin({ onBack }) {
       setLoading(true);
 
 const dataForm = new URLSearchParams();
-dataForm.append('email', email ? email : ''); // Ensure email is not undefined
+dataForm.append('username', email ? email : ''); // Ensure email is not undefined
 dataForm.append('password', password ? password : ''); // Ensure password is not undefined
 // dataForm.append('rememberMe', rememberMe ? 'true' : 'false');
 
